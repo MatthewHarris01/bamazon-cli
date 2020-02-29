@@ -5,5 +5,5 @@ This is a node CLI application utilizing mySQL to simulate an online store &mdas
 started writing a dbcontrol.js module which will contain all of the code to create and manipulate the database, exportging specific functions used by other code modules. Started the bamazoncustomer.js module. Currently working on a means to detect whether the "bamazon" database currently exists, if it does not exits, user will be asked whether or not to create it.
 
 # Version 0.2
-made a submission to backup the current state of the project. test code to display a list of all products has been completed and needed to be backed-up.
+push to backup current code base.
 
