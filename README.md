@@ -7,3 +7,6 @@ started writing a dbcontrol.js module which will contain all of the code to crea
 # Version 0.2
 push to backup current code base.
 
+# Version 0.3
+Code to display all products and products by department completed and workin. nex step is to create the code to handle a users purchase.
+

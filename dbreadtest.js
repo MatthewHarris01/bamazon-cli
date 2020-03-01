@@ -25,7 +25,7 @@ connection.connect(function(err,result) {
 });
 
 //now read all of the products from the Electronics department
-var query = connection.query("SELECT * FROM Products WHERE deptid = 3;", function(err,result) {
+var query = connection.query("SELECT * FROM Products;", function(err,result) {
   if (err) throw err;
   console.log("-----------------------------------------");
   // console.log(result);
@@ -39,7 +39,7 @@ var query = connection.query("SELECT * FROM Products WHERE deptid = 3;", functio
   Columnhead();   //prints the column heading
   RowDivider();  //prints the row divider
 
-  for (k=0;k<result.length; k++) {    //why is this not executing 3 times????
+  for (k=0;k<result.length; k++) {   
     // console.log("loop count: " + k);
     // console.log("product: " + result[i].ProductName);
     // console.log(FormatProductRow(result[i].itemId, result[i].ProductName, result[i].DeptId,result[i].SellPrice, result[i].Quantity));
@@ -95,7 +95,7 @@ temp += "|";
 
 
   //FORMATT THE PRICE CELL
-  var sprice = price.toString();
+  var sprice = price.toFixed(2);
 
   temp = " " + sprice;
   padding = 9-temp.length;
