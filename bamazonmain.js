@@ -82,7 +82,7 @@ function RowDivider() {
     
       //execute SQL to get products for the specified department (1,2,3 or 4)
 //now read all of the products from the selected department.
-let query = connection.query("SELECT * FROM Products WHERE DeptID = " + DeptId + ";", function(err,result) {
+let query = connection.query("SELECT * FROM Products WHERE DeptID = " + DeptId + " ORDER BY ProductName;", function(err,result) {
   if (err) throw err;
   console.log("-----------------------------------------");
   // console.log(result);
@@ -206,7 +206,7 @@ function ShowAllProducts() {
 
   
 // NEXT EXECUTE A SELECT STATEMENT TO GET ALL PRODUCTS
-  var query = connection.query("SELECT * FROM Products;", function(err,result) {
+  var query = connection.query("SELECT * FROM Products ORDER BY ProductName;", function(err,result) {
     if (err) throw err;
     console.log("-----------------------------------------");
     // console.log(result);
@@ -233,66 +233,68 @@ function ShowAllProducts() {
         let price = result[k].SellPrice;
         let instock = result[k].Quantity;
 
-        let padding = 0;
-        let temp = "";
+        FormatProductRow(itemid, name, dept, price, instock);
+    }
+  //       let padding = 0;
+  //       let temp = "";
     
-      //FORMAT PRODUCT ID CELL
-      temp += "| " + itemid;
-      padding = 4- temp.length;
-      for (i=0;i<=padding;i++) { //add padding to the item id to match "cell"width.
-      temp += " ";
-      }
-      temp += "|";
+  //     //FORMAT PRODUCT ID CELL
+  //     temp += "| " + itemid;
+  //     padding = 4- temp.length;
+  //     for (i=0;i<=padding;i++) { //add padding to the item id to match "cell"width.
+  //     temp += " ";
+  //     }
+  //     temp += "|";
 
-      //FORMAT PRODUCT NAME CELL
-      productRow = temp; //item id is up to 3 digits inside the cell
-      var namepad = 84 -name.length;
-      productRow += " " + name;
+  //     //FORMAT PRODUCT NAME CELL
+  //     productRow = temp; //item id is up to 3 digits inside the cell
+  //     var namepad = 84 -name.length;
+  //     productRow += " " + name;
     
-      for (i= 0; i< namepad-1;i++) {
-        productRow += " ";
-      }
-      productRow += "|";
+  //     for (i= 0; i< namepad-1;i++) {
+  //       productRow += " ";
+  //     }
+  //     productRow += "|";
     
-      //FORMAT THE DEPARTMENT ID CELL
-      temp  = " " + dept;
-      padding = 7-temp.length;
+  //     //FORMAT THE DEPARTMENT ID CELL
+  //     temp  = " " + dept;
+  //     padding = 7-temp.length;
     
-      for (i=0; i<padding;i++) {
-        temp += " "
-      }
-      temp +="|";
-      productRow += temp;
+  //     for (i=0; i<padding;i++) {
+  //       temp += " "
+  //     }
+  //     temp +="|";
+  //     productRow += temp;
       
-      //FORMAT PRICE CELL
-      var sprice = price.toFixed(2);
+  //     //FORMAT PRICE CELL
+  //     var sprice = price.toFixed(2);
 
-      temp = " " + sprice;
-      padding = 9-temp.length;
+  //     temp = " " + sprice;
+  //     padding = 9-temp.length;
     
-      for (i=0;i < padding-1;i++) {
-        temp += " ";
-      }
-      temp += "|"
+  //     for (i=0;i < padding-1;i++) {
+  //       temp += " ";
+  //     }
+  //     temp += "|"
     
-      productRow += temp;
+  //     productRow += temp;
     
-      //FORMAT INVENTORY CELL
-      temp = instock.toString();
-      temp = " " + temp;
-      padding = 10- temp.length;
+  //     //FORMAT INVENTORY CELL
+  //     temp = instock.toString();
+  //     temp = " " + temp;
+  //     padding = 10- temp.length;
     
-      for (i=0;i< padding;i++) {
-        temp += " ";
-      }
-      temp += "|";
+  //     for (i=0;i< padding;i++) {
+  //       temp += " ";
+  //     }
+  //     temp += "|";
     
-      productRow += temp;
+  //     productRow += temp;
     
-      //NOW OUTPUT THE FORMATTED ROW
-      console.log(productRow );
-      RowDivider();
-    } //end of outer loop ierating results from query
+  //     //NOW OUTPUT THE FORMATTED ROW
+  //     console.log(productRow );
+  //     RowDivider();
+  //   } //end of outer loop ierating results from query
 
    //END THE CONNECTION
    connection.end();
