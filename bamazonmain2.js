@@ -1,26 +1,11 @@
-
-//*****************************************
-//              REQUIRES
 var mysql = require("mysql");
-var Inquirer = require("inquirer");
+var Inquire = require("inquirer");
 var FS = require("fs");
-var inputSync = require('readline-sync');
-//*****************************************
 
-//*******************************************
-//         GLOBAL VARIABLESS
-var glbProductID = undefined; //Global var to hold product ID entered by the user
-var glbQuantity = undefined;  //Global var to hold quantity the user whishes to buy.
-var productIDList = [];   //Global array holds all valid product id numbers.
-
-var CONX; //this variable will hold a reference to the mysql connection object.
-
-//*******************************************
-
-// var dbtools = require("./DBcontrol"); //this require links in the functions exported from the DBControl module.
-// var customer = require("./bamazonCustomer");
-// var buyitemID;    //global variable to store the current item id that user wants to purchase
-// var buyQuantity;  //global variable to store the quantity of the current item the user wants to purchase
+var dbtools = require("./DBcontrol"); //this require links in the functions exported from the DBControl module.
+var customer = require("./bamazonCustomer");
+var buyitemID;    //global variable to store the current item id that user wants to purchase
+var buyQuantity;  //global variable to store the quantity of the current item the user wants to purchase
 
 
 //print the virtual store logo
@@ -31,6 +16,7 @@ console.log("|***  VIRTUAL ONLINE SHOPPING ***|");
 console.log("|********************************|");
 console.log("|*------------------------------*|");
 
+var CONX; //this variable will hold a reference to the mysql connection object.
 
 function RowDivider() {
   console.log("+----+------------------------------------------------------------------------------------+-------+--------+----------+");
@@ -78,7 +64,7 @@ function ShowProductbyDept(DeptId) {
 
   //format heading to center it over the product grid
   let padcount = (80 - deptname.length) / 2;
-  // console.log("padcount: " + padcount);
+  console.log("padcount: " + padcount);
   for (k1 = 0; k1 < padcount; k1++) {
     deptname = " " + deptname;
   }
@@ -243,6 +229,9 @@ function ShowAllProducts() {
     Columnhead();   //prints the column heading
     RowDivider();  //prints the row divider
 
+
+
+
     // now, iterate the returned results and display the product grid
     for (k = 0; k < result.length; k++) {
 
@@ -264,11 +253,11 @@ function ShowAllProducts() {
 } //end of Show All Products function
 
 function SelectDepartment() {
-  //this function shows a prompt for user to select a department whose products they want to view, and then calls the 
+  //this function shows a promp for user to select a depart whose products they want to view, and then calls the 
   //ShowProductbyDepartment function to retrieve and display the products for the selected department.
   console.log("inside Select Department function");
 
-  Inquirer.prompt([
+  Inquire.prompt([
     {
       type: "list",
       name: "dept",
@@ -300,7 +289,7 @@ function SelectDepartment() {
     }) //end of then callback for inquire prompt
 } //end of Select Department function;
 
-Inquirer.prompt([
+Inquire.prompt([
   {
     type: "list",
     name: "action",
@@ -328,7 +317,7 @@ Inquirer.prompt([
 
 function Shop() {
   console.log("inside the Shop function");
-  Inquirer.prompt([
+  Inquire.prompt([
     {
       type: "list",
       name: "action",
@@ -430,105 +419,66 @@ function SelectProduct() {
   // }) //end of FIRST answers .then function
   } //end of SelectProduct function
 
-
-
-  function GetProductQuantitySync() {
-    //this function prompts the user to enter the quantity they want to buy
-    //the user's input must be non-blank, and a numeric value.
-
-    console.log("INSIDE GET QUANTITY");
-  
-    let isGood = false; // boolean to determine whether user input is valid, assume input is bad
-  
-    do {
-    // get entry from user
-    var ProductQ = inputSync.question('Enter the quantity you want to buy: ');
-  
-      //check that input is non-blank
-      if (ProductQ.length == 0) {
-        console.log("ERROR! You must enter a non-blank value! Please try again.");
-        isGood = false;
-      }
-      else {
-    
-      //check that input is numeric
-      if (!isNaN(ProductQ)) {
-        isGood = true;  //input passes the is numeric test
-      }
-      else {  //invalid input -- product id must be a number.
-        console.log("ERROR! You must enter a numeric value! Please try again.")    
-        isGood = false} //need to explicitly set isGood to false, as it may have been set true by the non-blank test
-      }
-        // console.log("************* Value of isGood: " + isGood);
-    } while (isGood == false);
-  
-  
-    return ProductQ;
-  }
-  
-  
-  function GetProductIDSync() {
-    //this function prompts the user to enter a product ID.
-    //the user's input must be non-blank, and a numeric value.
-    console.log("INSIDE GET ID");
-  
-    let isGood = false; // boolean to determine whether user input is valid, assume input is bad
-    // var ProductID = "";
-  
-    do {
-    // get entry from user
-    var ProductID = inputSync.question('Enter the id number of the product you want to order (the product id is the number in the left-most column of the product list): ');
-  
-      //check that input is non-blank
-      if (ProductID.length == 0) {
-        console.log("ERROR! You must enter a non-blank value! Pleae try again. (HINT: the Product ID number is in the left-most column of the product list.")
-        isGood = false;
-      }
-      else {
-    
-      //check that input is numeric
-      if (!isNaN(ProductID)) {
-        isGood = true;  //input passes the is numeric test
-      }
-      else {  //invalid input -- product id must be a number.
-        console.log("ERROR! You must enter a numeric value! Please try again.")    
-        isGood = false} //need to explicitly set isGood to false, as it may have been set true by the non-blank test
-      }
-    } while (isGood == false);
-
-    return ProductID;
-  }
-  
-
-
 function BuyStuff() {
       //this function carries out the tasks involved when the customer makes a purchase, and is intended to be shown after the user has listed products by all or by department.
-      console.log("*************************************************");
       console.log("inside Buy Stuff function");
-      console.log("*************************************************");
-      //verify that user has entered a valid item id
-      // var archoice = ["1", "2", "3", "11"];
+      //verify that use has entered a valid item id
+      var archoice = ["1", "2", "3", "11"];
       // ChooseYesNo(archoice);
-      //  SelectProduct();
-
-
-      //get user input fo iem id and quantity
-      glbProductID = GetProductIDSync();
-      glbQuantity = GetProductQuantitySync();
-
-      console.log("****************************************");
-      console.log("user selected product ID: " + glbProductID);
-      console.log("user selected Quantity: " + glbQuantity);
-      console.log("****************************************");
-
-      console.log("id selected: " + glbProductID);
-
-      // WORKING HERE
-
-
+      // SelectProduct();
+      Inquire.prompt([
+        {
+          type: "input",
+          name: "itemid",
+          message: "Enter a product ID number (product id is the number in the left-most column of the product list):",
+          //****************************************************start of validate function
+          validate: function validateItemIdNumber(name) {
+            if (isNaN(name)) {
+              return "You must enter a product id number, digits only! (HINT: the product id number is in the leftmost column of the product list)"
+            }
+            else { return true; }
+          }  //end of item id valication function
+        },  //end of product id input
+        // start of quantity input
+        {
+          type: "input",
+          name: "quantity",
+          message: "Enter the quantity you wish to buy: ",
+          validate: function validateQuantity(name) {
+            console.log("validating quantity");
+            let tmp = isNaN(name)
+            if (isNaN(name) ) {
+              return "You must enter a number for the quantity you wish to buy, digits 1-9 only!"
+            }
+            else { return true; }
+          } //end of quantity validate function
+        } //end of quantity prompt
+      ]).then(function (answers)  {
+        console.log("INSIDE THEN FUNCTION OF INQUIRER PROMPT");
+        buyitemID = answers.itemid;   //assign user's input valus to global variables for later use.
+        buyQuantity = answers.quantity;
+        connection.end(); //end the connection
     
+        //at this point, call the BuyStuff function to complete the customr order
+        // BuyStuff();
+      }, function foo() {
+        console.log('INSIDE SECOND THEN FUNCTION');
+      }) //end of FIRST answers .then function
+      // } //end of SelectProduct function
     
-      console.log("after Inquire for item id and quantity!!!!!");
+
+
+
+
+
+
+      console.log("\n ++++++++++++++++++++++++++++++++++++++++++++");
+      console.log("after call to Select Product function!!!!!")
+
+      //following values were set in globabl variabls in the Select Product function
+      console.log("user chose id: " + buyitemID); // item id
+      console.log("in quantity: " + buyQuantity); //quantity to purchase
+      
 
       // at this point, validate there is enough stock to cover this order
       //make another connection to the db
@@ -543,27 +493,23 @@ function BuyStuff() {
 
       connection.connect(function (err, result) {
         if (err) throw err;
-        console.log("connected in Buy Stuff function  as id " + connection.threadId);
+        console.log("connected as id " + connection.threadId);
       });
 
 
-      let query = connection.query("SELECT quantity FROM bamazon_db.products WHERE itemid=" + glbProductID + ";", function (err, results) {
+      let query = connection.query("SELECT quantity FROM bamazon_db.products WHERE itemid=" + buyitemID + ";", function (err, results) {
         if (err) throw err;
         // console.log("next line logs the result: ");
-        console.log("result of query: " + results);
-
-        //if results length is zero, the product id is invalid
+        console.log(results);
 
         console.log("rows returned: " + results.length);
         if (results.length > 0) {
           var instock = results[0].quantity;
 
-          console.log("TOTAL IN STOCK FOR ID: " + glbProductID + " is: " + instock);
-
-          console.log("*********************** VALIDATION QUERY");
-          // following values were set in the SelectProduct function.
-          // console.log("customer entered id: " + buyitemID);
-          // console.log("customer's entered quantity is: " + buyQuantity);
+          console.log("***********************");
+          // follsing values were set in the SelectProduct function.
+          console.log("customer entered id: " + buyitemID);
+          console.log("customer's entered quantity is: " + buyQuantity);
 
 
           // console.log("Quantity in stock is: " + results[0].quantity);
@@ -575,4 +521,4 @@ function BuyStuff() {
       }); //end of query method and its callback function
 
          //**************************************
-  } //end of Buy Stuff function
+} //end of Buy Stuff function
