@@ -15,5 +15,8 @@ push to backup current code base.
 
 # Version 0.5
 push to backup current code base. Now using "readline-sync" to get user input. Code successfully waits for user input
+# Version 0.6
+push to backup current code base. Customer module is almost 100% complete, code now verifies there is sufficient inventory for a product, and verifies the user's selection for item and quantity. Remaining to do is complete the update of inventory in the Products table, and add a new row for the transaction to the Sales table.
+
 
 

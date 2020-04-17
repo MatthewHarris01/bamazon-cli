@@ -1,0 +1,24 @@
+{
+  "name": "bamazon-cli",
+  "version": "1.0.0",
+  "description": "This is a node CLI application utilizing mySQL to simulate an online store &mdash; customers may order products, managers may add new products and view or update inventory levels, supervisors may see reports showing the total earnings of various departments, and similar store management actions",
+  "main": "DBcontrol.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatthewHarris01/bamazon-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatthewHarris01/bamazon-cli/issues"
+  },
+  "homepage": "https://github.com/MatthewHarris01/bamazon-cli#readme",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "readline-sync": "^1.4.10",
+    "sync-mysql": "^3.0.1"
+  }
+}
