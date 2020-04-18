@@ -59,24 +59,6 @@ CONX =  mysql.createConnection({
   database: "bamazon_db"
 })  //end of connection
 
-//populate the global array of product ID numbers.
-// let query = connection.query("SELECT * FROM Products WHERE DeptID = " + DeptId + " ORDER BY ProductName;", function (err, result) {
-
-// console.log("load list of valid product ID");
-
-// // const result = CONX.query('SELECT itemid FROM products order by itemid');
-// let query = CONX.query("SELECT itemid FROM products ORDER BY itemid", function (err, results) {
-//   if (err)  throw err;
-
-//   console.log("count of results: " + results.length);
-
-//   for (k=0;k<results.count; k++) {
-//     console.log("ID: " + results[k].itemid);
-//   }
-
-
-// })
-// CONX.end()  //end the connection
 
 
 function RowDivider() {
@@ -94,7 +76,6 @@ function Columnhead() {
 
   var colheading2 = "| id ";
   colheading2 += "|                Product Description                                                 | Dept. | Price  | In Stock |";
-  // console.log(colheading);
   console.log(colheading2);
 }
 
@@ -102,22 +83,19 @@ function ShowProductbyDept(DeptId) {
   //this function displays the product grid for products in a specific department
   //there are four departmens: Electronic (id 1), Clothing (id 2), Applicnaces (id 3) and Offic (id 4).
   //the deptid parameter to this function should be the id number of one of the various departments
-  console.log("inside Show Product by Dept function");
+  // console.log("inside Show Product by Dept function");
 
   let deptname = ""
   switch (DeptId) {
     case 1:
       deptname = "ELECTRONICS"
       break;
-
     case 2:
       deptname = "CLOTHING"
       break;
-
     case 3:
       deptname = "APPLIANCES"
       break;
-
     case 4:
       deptname = "OFFICE"
       break;
@@ -125,7 +103,6 @@ function ShowProductbyDept(DeptId) {
 
   //format heading to center it over the product grid
   let padcount = (80 - deptname.length) / 2;
-  // console.log("padcount: " + padcount);
   for (k1 = 0; k1 < padcount; k1++) {
     deptname = " " + deptname;
   }
@@ -147,12 +124,12 @@ function ShowProductbyDept(DeptId) {
 
   //execute SQL to get products for the specified department (1,2,3 or 4)
   //now read all of the products from the selected department.
-  console.log(chalk.yellow("query for product from department: " + DeptId));
+  // console.log(chalk.yellow("query for product from department: " + DeptId));
   let query = connection.query("SELECT * FROM Products WHERE DeptID = " + DeptId + " ORDER BY ProductName;", function (err, result) {
     if (err) throw err;
-    console.log("-----------------------------------------");
+    // console.log("-----------------------------------------");
     // console.log(result);
-    console.log("number of items returned: " + result.length);
+    // console.log("number of items returned: " + result.length);
     // console.log("raw row: " + result[0]);
 
     //start the table of products with the column header and a row divider
@@ -257,13 +234,10 @@ function ShowAllProducts() {
   //first create a new db connection
   var connection = mysql.createConnection({
     host: "localhost",
-
     // Your port; if not 3306
     port: 3306,
-
     // Your username
     user: "root",
-
     // Your password
     password: "mhroot",
     database: "bamazon_db"
@@ -271,17 +245,15 @@ function ShowAllProducts() {
 
   connection.connect(function (err, result) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId + "\n");
+    // console.log("connected as id " + connection.threadId + "\n");
   });
-
-
 
   // NEXT EXECUTE A SELECT STATEMENT TO GET ALL PRODUCTS
   var query = connection.query("SELECT * FROM Products ORDER BY ProductName;", function (err, result) {
     if (err) throw err;
-    console.log("-----------------------------------------");
+    // console.log("-----------------------------------------");
     // console.log(result);
-    console.log("number of items returned: " + result.length);
+    // console.log("number of items returned: " + result.length);
     // console.log("raw row: " + result[0]);
 
     //start the table of products with the column header and a row divider
@@ -322,7 +294,7 @@ function SelectDepartment() {
   else {choice = choices[index]}
   
 
-      console.log("------------------------------------------");
+      // console.log("------------------------------------------");
       switch (choice) {
         case "Electronics":
           ShowProductbyDept(1); //show the list of products in dept 1 (electronics)
@@ -362,7 +334,7 @@ Inquirer.prompt([
     let actionselected = answers.action;
 
     if (actionselected == "Shop") {
-      console.log("go to 'shopping' function");
+      // console.log("go to 'shopping' function");
       Shop();
     }
     else { 
@@ -372,7 +344,7 @@ Inquirer.prompt([
   });
 
 function Shop() {
-  console.log("inside the Shop function");
+  // console.log("inside the Shop function");
 
   let action="";
   shopActions = ['Show All Products', 'Show Products by Department']
@@ -384,27 +356,28 @@ function Shop() {
     else {
       action = shopActions[index]
     }
-      console.log("index is: " + index);
+    console.log(chalk.red("Selected Action is: " + action));
+      console.log(chalk.red("index is: " + index));
   
   // console.log('Ok, ' + action + ' will be performed.');  
-    console.log("the action you chose was: " + action);
-    if (action == "Show all products") {
-      console.log("call the ShowAllProducts function")
+    // console.log("the action you chose was: " + action);
+    if (action == "Show all products"  || index == 0) {
+      // console.log("call the ShowAllProducts function")
       ShowAllProducts();
-      console.log("now call the BuyStuff function");
-      BuyStuff(true);
+      // console.log("now call the BuyStuff function");
+      // BuyStuff(true);
     }
     else if (action == "place an order") {
-      console.log("call the BuyStuff function");
+      // console.log("call the BuyStuff function");
       BuyStuff(true);
     }
     else if (action == "Show Products by Department") {
-      console.log("call the Select Department function");
+      // console.log("call the Select Department function");
       SelectDepartment();
     }
   // });  //end of then function of the most recent Inquire prompt.
 
-  console.log(chalk.yellow("end of Shop function"));
+  // console.log(chalk.yellow("end of Shop function"));
 }
 
 
@@ -420,62 +393,12 @@ if (inputSync.keyInYN(chalk.yellow.bold(promptmsg))) {
 }
 }
 
-function SelectProduct() {
-  //this function is intended to enable the user to enter a product id and purchase quantity
-  //the code in this function has been broken into a separate function so that it can be called to get user to re-select a product and quantity in the event that 
-  //the user has either a) entered an invalid product id, or a quantity greater than that in stock.
-  console.log("inside Select product function");
-  console.log("user enters product id number and quantity desired");
-
-
-  console.log("Inquire prompt starts in next statement");
-  // Inquire.prompt([
-  //   {
-  //     type: "input",
-  //     name: "itemid",
-  //     message: "Enter a product ID number (product id is the number in the left-most column of the product list):",
-  //     //****************************************************start of validate function
-  //     validate: function validateItemIdNumber(name) {
-  //       if (isNaN(name)) {
-  //         return "You must enter a product id number, digits only! (HINT: the product id number is in the leftmost column of the product list)"
-  //       }
-  //       else { return true; }
-  //     }  //end of item id valication function
-  //   },  //end of product id input
-  //   // start of quantity input
-  //   {
-  //     type: "input",
-  //     name: "quantity",
-  //     message: "Enter the quantity you wish to buy: ",
-  //     validate: function validateQuantity(name) {
-  //       console.log("validating quantity");
-  //       let tmp = isNaN(name)
-  //       if (isNaN(name) ) {
-  //         return "You must enter a number for the quantity you wish to buy, digits 1-9 only!"
-  //       }
-  //       else { return true; }
-  //     } //end of quantity validate function
-  //   } //end of quantity prompt
-  // ]).then(function (answers)  {
-  //   console.log("INSIDE THEN FUNCTION OF INQUIRER PROMPT");
-  //   buyitemID = answers.itemid;   //assign user's input valus to global variables for later use.
-  //   buyQuantity = answers.quantity;
-  //   connection.end(); //end the connection
-
-  //   //at this point, call the BuyStuff function to complete the customr order
-  //   // BuyStuff();
-  // }, function foo() {
-  //   console.log('INSIDE SECOND THEN FUNCTION');
-  // }) //end of FIRST answers .then function
-  } //end of SelectProduct function
-
-
 
   function GetProductQuantitySync() {
     //this function prompts the user to enter the quantity they want to buy
     //the user's input must be non-blank, and a numeric value.
 
-    console.log("INSIDE GET QUANTITY");
+    // console.log("INSIDE GET QUANTITY");
   
     let isGood = false; // boolean to determine whether user input is valid, assume input is bad
   
@@ -509,7 +432,7 @@ function SelectProduct() {
   function GetProductIDSync(getname) {
     //this function prompts the user to enter a product ID.
     //the user's input must be non-blank, and a numeric value.
-    console.log("INSIDE GET ID");
+    // console.log("INSIDE GET ID");
   
     let isGood = false; // boolean to determine whether user input is valid, assume input is bad
     // var ProductID = "";
@@ -545,25 +468,28 @@ function SelectProduct() {
     return ProductID;
   }
   
-  function updateProduct(ItemID, newcount) {
-    // this function updates the Products table with a new inventory valur for the product specified by ItemID.
-    console.log(chalk.yellow("in updateproduct function, ItemID is: " + ItemID));
-    console.log(chalk.yellow("in updateproduct function, newcount is: " + newcount));
-  }
+  function updateInventory(ItemID, newcount) {
+    // this function updates the Products table with a new inventory value for the product specified by ItemID.
+    // console.log(chalk.yellow("in updateproduct function, ItemID is: " + ItemID));
+    // console.log(chalk.yellow("in updateproduct function, newcount is: " + newcount));
 
-  function updateSales(ItemID, Dept, quantity) {
-    // this function adds a new row to he Sales table, recording a single item purchase
-    console.log(chalk.yellow("in updateSales function, ItemID is: " + ItemID));
-    console.log(chalk.yellow("in updateSales function, Dept is: " + Dept));
-    console.log(chalk.yellow("in updateSales function, Quantity is: " + quantity));
-  }
+    connection = makeGlobalConnection();
+    connection.connect(function (err, result) {
+      if (err) throw err;
+      // console.log("connected in update inventory as id " + connection.threadId);
+    });
+  connection.query("UPDATE products SET Quantity = " + newcount + " WHERE itemID = " + ItemID +";");
 
+    connection.end();
+
+    // console.log(chalk.yellow("inventory update completed."));
+  }
 
 function BuyStuff(getname) {
       //this function carries out the tasks involved when the customer makes a purchase, and is intended to be shown after the user has listed products by all or by department.
-      console.log("*************************************************");
-      console.log("inside Buy Stuff function");
-      console.log("*************************************************");
+      // console.log("*************************************************");
+      // console.log("inside Buy Stuff function");
+      // console.log("*************************************************");
       //verify that user has entered a valid item id
       // var archoice = ["1", "2", "3", "11"];
       // ChooseYesNo(archoice);
@@ -574,18 +500,18 @@ function BuyStuff(getname) {
       glbProductID = GetProductIDSync(getname);
       glbQuantity = GetProductQuantitySync();
 
-      console.log("****************************************");
-      console.log("user name: " + glbUsername); //incidentally entered while gettign product ID.
-      console.log("user selected product ID: " + glbProductID);
-      console.log("user selected Quantity: " + glbQuantity);
-      console.log("****************************************");
+      // console.log("****************************************");
+      // console.log("user name: " + glbUsername); //incidentally entered while gettign product ID.
+      // console.log("user selected product ID: " + glbProductID);
+      // console.log("user selected Quantity: " + glbQuantity);
+      // console.log("****************************************");
 
-      console.log("id selected: " + glbProductID);
-      console.log("after getting item id and quantity!!!!!");
+      // console.log("id selected: " + glbProductID);
+      // console.log("after getting item id and quantity!!!!!");
 
       // at this point, validate there is enough stock to cover this order
       //make another connection to the db
-      console.log("makeing db connection next:")
+      // console.log("makeing db connection next:")
       let connection = makeGlobalConnection()
       // let connection = mysql.createConnection({
       //   host: "localhost",
@@ -597,46 +523,42 @@ function BuyStuff(getname) {
 
       connection.connect(function (err, result) {
         if (err) throw err;
-        console.log("connected in Buy Stuff function  as id " + connection.threadId);
+        // console.log("connected in Buy Stuff function  as id " + connection.threadId);
       });
 
 
       let query = connection.query("SELECT * FROM bamazon_db.products WHERE itemid=" + glbProductID + ";", function (err, results) {
         if (err) throw err;
-        console.log("*********************** VALIDATION QUERY");
+        // console.log("*********************** VALIDATION QUERY");
 
         //if results length is zero, the product id is invalid
         if (results.length ==0) {
           console.log(chalk.red("IT SEEMS THE PRODUCT ID YOU SELECTED IS INVALID!"));
-          console.log(chalk.blue("PLEASE RE-ENTER THE ID NUMBER OF THE PRODUCT AND THE QUANTITY YOU WISH TO BUY"));
+          console.log(chalk.yellow("You will now be prompted to to re-enter the product ID and Quantity that you wish to buy"));
           inputSync.question(chalk.yellow("Press the Enter key to continue."),{hideEchoBack: true, mask: ''});
 
-          console.log("--------------------------------")
-          console.log(chalk.red("INVALID PRODUCT ID: " + glbProductID));
-          console.log("--------------------------------");
-
-          console.log(chalk.yellow("making a recursive call to BuyStuff!"));
+          // console.log(chalk.yellow("making a recursive call to BuyStuff!"));
           BuyStuff(false);  //RECURSION!!!!!!
         }
 
         // get user to confirm product selection, quantity,and total cost.
 
 
-        console.log("rows returned: " + results.length);
+        // console.log("rows returned: " + results.length);
         if (results.length > 0) {
           var instock = results[0].Quantity;
           var priceEach = results[0].SellPrice;
           var product = results[0].ProductName;
           let Dept = results[0].DeptId
-          console.log("TOTAL IN STOCK FOR ID: " + glbProductID + " is: " + instock);
-          console.log("price each for item:  "+ priceEach);
-          console.log("item name: " + product);
-          console.log("Department ID: " + Dept);
+          // console.log("TOTAL IN STOCK FOR ID: " + glbProductID + " is: " + instock);
+          // console.log("price each for item:  "+ priceEach);
+          // console.log("item name: " + product);
+          // console.log("Department ID: " + Dept);
 
           // check whether there is enough in stock to fulfill this purchase request
           if (glbQuantity > instock) {
             // have user re-enter quantity until it is a value for which there is enough inventory
-            do{
+            do {
             console.log(chalk.yellow("There is not enough inventory to fulfill your order!!"));
             console.log(chalk.yellow("You requested to buy " + glbQuantity + " but there are only " + instock + " available!!"));
             console.log(chalk.yellow("Please re-enter the quantity you wish to buy."));
@@ -650,13 +572,18 @@ function BuyStuff(getname) {
           CONX.end();
 
           // CONFIRM THE USER'S PURCHASE.
-          console.log(chalk.blue('next step is to confirm user\'s purchase.'));
+          // console.log(chalk.blue('next step is to confirm user\'s purchase.'));
           let totalCost = glbQuantity * priceEach;
           let msg = glbUsername + ", your purchase selection is shown below:"
-          console.log(msg);
+          console.log(chalk.yellow(msg));
           msg = glbUsername + ", you chose product: '" + product + "', and selected a quantity of: '" + glbQuantity + "'. The total cost will be: $" + totalCost.toFixed(2) + "."
           console.log(chalk.yellow.bold(msg));
-          let confirm = GetYesOrNo("Do you confirm your order as shownn in the line above? (press 'Y' for Yes, any other key for No");
+          let confirm = GetYesOrNo("Do you confirm your order as shown in the line above? (press 'Y' for Yes, any other key for No");
+
+          if(confirm) {
+            // USER HAS CONFIRMED PURCHASE, UPDATE PRODUCT INVENTORY. It doesn't matter if user had not chosed to start over
+            updateInventory(glbProductID, instock - glbQuantity); //update product inventory
+          }
 
           if (!confirm) {
             let startOver = GetYesOrNo("Do you Want to start over?")
@@ -666,12 +593,9 @@ function BuyStuff(getname) {
             }
             else {
               ShowExitMsg();
+              CONX.end(); //ensure global connectin is ended
               return;}
           }
-
-          // USER HAS CONFIRMED PURCHASE, UPDATE PRODUCT INVENTORY AND Sales table.
-          updateProduct(glbProductID, instock - glbQuantity); //update product inventory
-          updateSales(glbProductID, Dept, glbQuantity); //update Sales table with new row.
 
           if (GetYesOrNo("Do you want to continue shopping?")) {
             //user wants to continue shopping
