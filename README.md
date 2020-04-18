@@ -18,6 +18,7 @@ push to backup current code base. Customer module 100% complete, inentory is suc
 
 # Known Issues
 Choosing "Start Over" at the end of the purchase process results in mysql time-out error for the mysql query that selects products from the database.
+When the porgram run is complete, it does not return control to the terminal window without pressing Ctrl+C.
 
 
 
