@@ -593,7 +593,7 @@ function BuyStuff(getname) {
             }
             else {
               ShowExitMsg();
-              CONX.end(); //ensure global connectin is ended
+              // CONX.end(); //ensure global connection is ended, nah can't do this or get a runtime error -- the connection has previously been ended, can't end it again
               return;}
           }
 
@@ -601,7 +601,9 @@ function BuyStuff(getname) {
             //user wants to continue shopping
             Shop();
           }
-          else { ShowExitMsg()}
+          else { ShowExitMsg();
+            // CONX.end(); //nah, connection has previously been ended, can't end it again without a runtim error.
+          }
         }
       }); //end of query method and its callback function
 

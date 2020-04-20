@@ -19,4 +19,4 @@ push to backup current code base. Customer module 100% complete, inentory is suc
 removed some extraneous files. This is a 100% complete version of the customer shopping module.
 
 # Known Issues
-Choosing "Start Over" or "continue shoppng" at the end of the purchase process results in a mysql time-out error for the mysql query that selects products from the database
+Choosing "Start Over" or "continue shopping" at the end of the purchase process results in a mysql time-out error for the mysql query that selects products from the database
