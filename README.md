@@ -15,11 +15,8 @@ push to backup current code base. Now using "readline-sync" to get user input. C
 push to backup current code base. Customer module is almost 100% complete, code now verifies there is sufficient inventory for a product, and verifies the user's selection for item and quantity. Remaining to do is complete the update of inventory in the Products table, and add a new row for the transaction to the Sales table.
 # Version 0.7
 push to backup current code base. Customer module 100% complete, inentory is successfully updated after a confirmed purchase. For a variety of reasons upating the Sales table has been abandoned.
+# Version 1.0 
+removed some extraneous files. This is a 100% complete version of the customer shopping module.
 
 # Known Issues
-Choosing "Start Over" at the end of the purchase process results in mysql time-out error for the mysql query that selects products from the database.
-When the porgram run is complete, it does not return control to the terminal window without pressing Ctrl+C.
-
-
-
-
+Choosing "Start Over" or "continue shoppng" at the end of the purchase process results in a mysql time-out error for the mysql query that selects products from the database

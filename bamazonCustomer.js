@@ -106,7 +106,7 @@ function ShowProductbyDept(DeptId) {
   for (k1 = 0; k1 < padcount; k1++) {
     deptname = " " + deptname;
   }
-  console.log(deptname);
+  // console.log(deptname);
 
   //make a connection to the db
   let connection = mysql.createConnection({
@@ -119,7 +119,7 @@ function ShowProductbyDept(DeptId) {
 
   connection.connect(function (err, result) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
+    // console.log("connected as id " + connection.threadId);
   });
 
   //execute SQL to get products for the specified department (1,2,3 or 4)
@@ -159,7 +159,7 @@ function ShowProductbyDept(DeptId) {
   } //end of then callback function for query
   ) //end of query method parameter list
 
-console.log(chalk.yellow("end of show by Dept function"));
+// console.log(chalk.yellow("end of show by Dept function"));
 } //end of Show by Dept function
 
 function FormatProductRow(itemid, name, dept, price, instock) {
@@ -228,8 +228,8 @@ function FormatProductRow(itemid, name, dept, price, instock) {
 
 function ShowAllProducts() {
   //this function shows a list of all products in the database
-  console.log("------------------------------------------------");
-  console.log("inside the Show All Products function");
+  // console.log("------------------------------------------------");
+  // console.log("inside the Show All Products function");
 
   //first create a new db connection
   var connection = mysql.createConnection({
@@ -286,7 +286,7 @@ function ShowAllProducts() {
 function SelectDepartment() {
   //this function shows a prompt for user to select a department whose products they want to view, and then calls the 
   //ShowProductbyDepartment function to retrieve and display the products for the selected department.
-  console.log("inside Select Department function");
+  // console.log("inside Select Department function");
   
   choices = ["Electronics", "Clothing", "Appliances"],
   index=inputSync.keyInSelect(choices, "Choose a department by number from the list above", {cancel: "Office"});
@@ -356,8 +356,8 @@ function Shop() {
     else {
       action = shopActions[index]
     }
-    console.log(chalk.red("Selected Action is: " + action));
-      console.log(chalk.red("index is: " + index));
+    // console.log(chalk.red("Selected Action is: " + action));
+      // console.log(chalk.red("index is: " + index));
   
   // console.log('Ok, ' + action + ' will be performed.');  
     // console.log("the action you chose was: " + action);
