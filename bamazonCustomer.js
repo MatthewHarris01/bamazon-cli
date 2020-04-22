@@ -603,6 +603,7 @@ function BuyStuff(getname) {
           }
           else { ShowExitMsg();
             // CONX.end(); //nah, connection has previously been ended, can't end it again without a runtim error.
+            return;
           }
         }
       }); //end of query method and its callback function

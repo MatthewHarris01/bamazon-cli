@@ -17,6 +17,7 @@ push to backup current code base. Customer module is almost 100% complete, code 
 push to backup current code base. Customer module 100% complete, inentory is successfully updated after a confirmed purchase. For a variety of reasons upating the Sales table has been abandoned.
 # Version 1.0 
 removed some extraneous files. This is a 100% complete version of the customer shopping module.
+# Version 1.1 -- fixes the issue where the program did not completely terminate and return control of the terminal window, th problem was caused bya missing "return" statement.
 
 # Known Issues
 Choosing "Start Over" or "continue shopping" at the end of the purchase process results in a mysql time-out error for the mysql query that selects products from the database
